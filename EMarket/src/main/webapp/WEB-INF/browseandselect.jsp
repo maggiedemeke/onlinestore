@@ -18,10 +18,10 @@
 <div class = "list">
 <c:set var="product_count" value="0" scope="page"/>
                 <c:forEach var="Product"  items="${products}">
-                    <c:if test="${product_count % 3 == 0}"><div class="row"></c:if> 
+                    <c:if test="${product_count % 3 == 0}"><div class="row"></c:if>
               		<%-- <c:set var="product" value="${product}" scope="session" /> --%>
-                   <a href="ProductDetailController?name=${Product.name}">
-                   <img src="<c:url value="${Product.link}"/>" value ="${Product.id}" name = "${Product.name}" width="300" height = "200" 
+                   <a href="ProductDetailController">
+                   <img src="<c:url value="${Product.link}"/>"  name = "aProduct" width="300" height = "200" 
                     alt= "product image" class="img-thumbnail" class="img-responsive" /></a>
                     <c:if test="${product_count % 3 == 2}"></div></c:if>
                     <c:set var="product_count" value="${product_count + 1}" scope="page"/>
@@ -29,6 +29,11 @@
 
 </div>
 
-
+<form action = "ShoppingCartController" method ="post">
+<fieldset>
+<legend> </legend>
+<input  type= button name= "addtocart" value = "Add to Cart"/>
+</fieldset>
+</form>
 </body>
 </html>

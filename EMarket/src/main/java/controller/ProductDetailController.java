@@ -21,25 +21,19 @@ public class ProductDetailController extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
 		ProductDAO access = new ProductDAO();
 		List<Product> list = new ArrayList<Product>();
 		list = access.read();
 		
 		
-		String name =request.getParameter("name");
-		if(name != null) {
+		String link =request.getParameter("aProduct");
+		
 		for(Product p : list) {
-			if(p.getName().equals(name)) {
+			if(p.getLink().equals(link)) {
 				request.getSession().setAttribute("aProduct", p);
-				request.getRequestDispatcher("/WEB-INF/productdetail.jsp").forward(request,response);
-				break;
+				request.getRequestDispatcher("/productdetail.jsp").forward(request,response);
 			}
-			
 		}
-		
-		}
-		
 		
 	}
 

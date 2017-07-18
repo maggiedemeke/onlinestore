@@ -1,11 +1,14 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class ProfileController
@@ -26,16 +29,26 @@ public class ProfileController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.setContentType("text/html");  
+        PrintWriter out=response.getWriter();  
+        request.getRequestDispatcher("/WEB-INF/header_template.jsp").include(request, response); 
+        
+ HttpSession session=request.getSession(false);  
+        
+        String name=(String)session.getAttribute("name"); 
+        if(name!=null){            
+        	request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response); 
+        }  
+        
+        else{  
+            request.getRequestDispatcher("/WEB-INF/login.jsp").include(request, response); 
+            out.print("<p>Please login first</p>");  
+        }  
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+//		// TODO Auto-generated method stub
+//		doGet(request, response);
 	}
 
 }
